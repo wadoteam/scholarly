@@ -69,22 +69,71 @@
     <section id="table-of-content">
         <h1>Table of content</h1>
         <p>
-        <ul style="list-style-type: none;">
-            <li><a href="#architecture">1. Architecture</a></li>
-            <li><a href="#architecture-ontology">1.1. Ontology Architecture</a></li>
-            <li><a href="#data-sources-github">1.2. Github GraphQL</a></li>
-            <li><a href="#data-sources-wikidata">1.3. WikiData</a></li>
-            <li><a href="#development">2. Development</a></li>
-            <li><a href="#development-creation">2.1. Construct of Ontology</a></li>
-            <li><a href="#development">2.2. Ontology interrogation</a></li>
-            <li><a href="#conclusion">3. Conclusion</a></li>
-            <li><a href="#biblio">4. Bibliography</a></li>
+        <ul class="no-decoration">
+            <li><a href="#introduction">1. Introduction</a></li>
+            <li><a href="#objective">2. Objectives</a></li>
+            <li><a href="#architecture">3. Architecture</a></li>
+            <li><a href="#architecture-ontology">3.1. Ontology Architecture</a></li>
+            <li><a href="#data-sources-github">3.2. Github GraphQL</a></li>
+            <li><a href="#data-sources-wikidata">3.3. WikiData</a></li>
+            <li><a href="#interogation">3.4. Natural language like Input</a></li>
+            <li><a href="#schema">3.5. Ontology schema</a></li>
+            <li><a href="#development">4. Development</a></li>
+            <li><a href="#development-build-ontology">4.1. Build Ontology Microservice</a></li>
+            <li><a href="#development-query-ontology">4.2. Querying Ontology Microservice</a></li>
+            <li><a href="#development-process-input">4.3. Process Input Microservice</a></li>
+            <li><a href="#conclusion">5. Conclusion</a></li>
+            <li><a href="#biblio">6. Bibliography</a></li>
         </ul>
         </p>
     </section>
 
+    <section id="introduction">
+        <h1>1. Introduction</h1>
+        <p>Web semantics represents a new step in the evolution of web and the use of the huge amount of information
+            from World Wide Web. Ontologies with help from reasoners can retain information and the semantic links
+            between them.
+            A lot of domains are represented under a ontology which grow in time and offers new ways of understanding a
+            domain and
+            its links with others. Computer science is definitely a domain which deserve a comprehensive ontology.
+        </p>
+    </section>
+
+    <section id="objective">
+        <h1>2. Objectives</h1>
+        <p>
+            In order to create an ontology which retain semantic data about computer science domains a few points must
+            be take in consideration:
+        <ul>
+            <li>
+                what is the ideal architectural design for creation of a maintainable, rich in information and easy to
+                extend ontology
+            </li>
+            <li>
+                which concepts must a such
+                ontology retain through its classes, properties and instances? Which datasources can be used to create a
+                such ontology
+            </li>
+            <li>
+                how can it take advantage of reasoner inference to find new links between information especially between
+                data
+                come from different sources and diferent formats
+            </li>
+            <li>
+                which datasource can be used to create a such
+                ontology
+            </li>
+
+            <li>
+                how can a user retrive information from a such ontology in the easiest way
+            </li>
+        </ul>
+
+        </p>
+    </section>
+
     <section id="architecture">
-        <h1>1. Arhitecture</h1>
+        <h1>3. Arhitecture</h1>
         <p>
             The architecture of ontology must allow different data sources(like a REST api, a GraphQl Api, an existing
             ontology) with different formats(like json, turtle etc.). To achieve modularity it will be used
@@ -95,7 +144,7 @@
     </section>
 
     <section id="architecture-ontology">
-        <h2>1.1 Ontology's architecture</h2>
+        <h2>3.1 Ontology's architecture</h2>
         <p>
             Ontology will aggregate different data sources. Primary sources are json responses from GraphQl
             Github Api
@@ -133,6 +182,9 @@
             which repesent <code>github language concept</code> which will be created after a graphQL query. The client
             will work
             only with WADO classes so different datasources search will be a transparent process.
+            Also will be used properties from <a href="#schema">FOAF and RDFs</a> to represent relation between classes
+            from different ontologies
+            and discover new relation from merging classes with same URI.
 
             <figure typeof="sa:Image">
                 <img src="././ScholaryAssets/img/normalization_aligment.jpg" width="1" height="200">
@@ -167,7 +219,7 @@
     </section>
 
     <section id="data-sources-github">
-        <h2>1.2 Ontology's data sources. GithubGraphQL</h2>
+        <h2>3.2 Ontology's data sources. GithubGraphQL</h2>
         <p>
             One of the most important data source for WADO ontology is information from github obtained through GraphQL
             Api v4.
@@ -199,7 +251,7 @@
     </section>
 
     <section id="data-sources-wikidata">
-        <h2>1.2 Ontology's data sources. Wikidata</h2>
+        <h2>3.3 Ontology's data sources. Wikidata</h2>
         <p>
             Second source of information for construction of ontology is a part of another ontology: Wikidata.
             <aside typeof="schema:WPSideBar"><i class="fa fa-info-circle" aria-hidden="true"></i>
@@ -211,19 +263,165 @@
 
         </p>
     </section>
+    <section id="interogation">
+        <h1>3.4 Natural language ontology interogation</h1>
+        <p>
+            A well formed ontology is so powerfull as the tools to extract data from it, because a big ontology need
+            easy and fast
+            ways to retrieve desired data, mechanisms for suggestions and simple navigation through a such big amount on
+            information.
+            Also, is important that not only a domain expert knowing how to fetch data from an ontology but every person
+            who need information
+            for work, a project or for satisfying curiosity. Because of this, a natural language approach can be the
+            right tool to
+            retrieve data, easy and accessible for a big diversity of clients. WADO give the possibility to navigate
+            through ontology data
+            using natural language, offering also a system of autocomplete and suggestions. Because this approach is a
+            consuming one
+            from a processing time point of view, WADO use a cache system and optimizate library for autocomplete like:
+            <a target="_blank"
+               href="http://documentcloud.github.io/visualsearch/">VisualSearch.js</a>
+        </p>
+    </section>
+
+    <section id="schema">
+        <h1>3.5 Ontology schema</h1>
+        <p>
+            <strong>Vocabularies:</strong>
+        <ul>
+            <li><a target="_blank" href="http://www.w3.org/2000/01/rdf-schema#">RDFs</a> to represent taxonomy relations
+            </li>
+            <li><a target="_blank" href="http://xmlns.com/foaf/0.1/">FOAF</a> is used to represent relation between
+                concepts and also between people. In this way
+                ontology can suggest related data about a cliend's search
+            </li>
+            <li><a target="_blank" href="http://www.w3.org/2002/07/owl#">OWL</a> is used to represent complex relation
+                between
+                concepts. Also define restriction to help a reasoner infer more data.
+            </li>
+            <li><a target="_blank" href="https://wadoteam.github.io/ontologyVisualization/">WADO</a> is used to
+                represent specific
+                relations
+                between WADO ontology classes: <code>wado:hasParadigm</code>, <code>wado:isPartOfOntology</code> etc.
+            </li>
+        </ul>
+
+        Also, to ensure consistency and correctness of data from ontology, will be used a tool for defining constraints.
+        <a target="_blank" href="https://www.w3.org/TR/shacl/">SHACL</a> is a recomandation from W3 and a powerful tool
+        to write constraints.
+        </p>
+    </section>
 
     <section id="development">
-        <h1>2. Development</h1>
-    </section>
-    <section id="development-creation">
-        <h1>2.1 Construct of Ontology</h1>
-    </section>
-    <section id="development-interogation">
-        <h1>2.2 Ontology interogation</h1>
+        <h1>4. Development</h1>
+        <p>
+            To achieve all objectives WADO project development can be split in two parts:
+        <ul>
+            <li>ontology creation</li>
+            <li>ontology interogation</li>
+        </ul>
+        </p>
+        <p>
+            Not only ontology must be modular to obtain independence and modularity but whole project too. Because of
+            this
+            WADO use a microservices design and define a set of independent modules, independent of each other,
+            specialized
+            on a certain task. Entire project is construct on the follow microservices:
+        <ol>
+            <li>
+                <a target="_blank" href="https://github.com/wadoteam/wadoteam.github.io/issues/2">BuildOntology Micro
+                    Service</a>
+            </li>
+            <li>
+                <a target="_blank" href="https://github.com/wadoteam/wadoteam.github.io/issues/3">QueryingOntology Micro
+                    Service</a>
+            </li>
+            <li>
+                <a target="_blank" href="https://github.com/wadoteam/wadoteam.github.io/issues/4">ProcessInput Micro
+                    Service</a>
+            </li>
+        </ol>
+
+        All micro services mentioned will be use to create aplication by the <a target="_blank"
+                                                                                href="https://github.com/wadoteam/wadoteam.github.io/issues/1">Client
+        Aplication </a>module.
+        </p>
+
+
+        2 steps of project ( create ontology si interogarea ei)
+        impartirea in microservicii independente si specializate (imagini plus explicat un pic). folosirea unui reasoner
+        pentru a obtine date noi. comunicarea rest intre microservicii. tooluri: protege, jena, angular and
+
     </section>
 
+    <section id="development-build-ontology">
+        <h2>4.1 BuildOntology Micro service</h2>
+        <p>
+            This microservice cover up the first part of project development, ontology creation.
+        <ul class="no-decoration">
+            <li><strong>Scope:</strong> aggragate information from sources independent of formats or types and convert
+                in Wado classes/predicates
+            </li>
+            <li><strong>Input:</strong> github graphQL api / wikidata</li>
+            <li><strong>Output:</strong> wado classes/predicates</li>
+        </ul>
+        <figure typeof="sa:Image">
+            <img src="././ScholaryAssets/img/build_ontology_microservice_diagram.jpg" width="1" height="200">
+            <figcaption>
+                Fig 1.2 Build Ontology Miroservice Arhitecture
+            </figcaption>
+        </figure>
+        </p>
+    </section>
+
+    <section id="development-query-ontology">
+        <h2>4.2 QueryOntology Micro service</h2>
+        <p>
+            This microservice is the principal node between a clien request and Wado Ontology.
+        <ul class="no-decoration">
+            <li><strong>Scope:</strong> query ontology based on request (filters, paginating, suggestion)</li>
+            <li><strong>Input:</strong> a input procesed by the InputProcessing microservice</li>
+            <li><strong>Output:</strong> a JSON Response based on the search through ontology</li>
+        </ul>
+        <figure typeof="sa:Image">
+            <img src="././ScholaryAssets/img/query_ontology_microservice_diagram.jpg" width="1" height="200">
+            <figcaption>
+                Fig 1.3 Query Ontology Miroservice Arhitecture
+            </figcaption>
+        </figure>
+        </p>
+    </section>
+
+    <section id="development-process-input">
+        <h2>4.3 ProcessInput Micro service</h2>
+        <p>
+            This microservice is basicaly a convertor between client request and QueryOntology Microservice.
+        <ul class="no-decoration">
+            <li><strong>Scope:</strong> transform natural language like input into a format machine accessible</li>
+            <li><strong>Input:</strong> a client natural language like input</li>
+            <li><strong>Output:</strong> a REST url which translate client input in a QueryOntology Microservice input
+            </li>
+        </ul>
+        <figure typeof="sa:Image">
+            <img src="././ScholaryAssets/img/process_input_microservice_diagram.jpg" width="1" height="200">
+            <figcaption>
+                Fig 1.4 Query Ontology Miroservice Arhitecture
+            </figcaption>
+        </figure>
+        </p>
+    </section>
+
+
     <section id="conclusion">
-        <h1>3. Conclusion</h1>
+        <h1>5. Conclusion</h1>
+        <p>
+            In conclusion, a ontology with a powerful impact in computer science development must adopt a architecture
+            based on design patterns to remain open to extension, easy to maintain and debug. Also is important to catch
+            important aspects of the domain and the relations between them, and defined classes as restriction of good
+            implemented properties to offer the possibility of a qualitative and quantitative infered data which, at its
+            turn to
+            be interrogated easily in a natural language manner.
+        </p>
     </section>
     <section id="biblio">
         <h1>4. Bibliography</h1>

@@ -395,3 +395,7 @@ p {
   bottom: 30px;
   right: 30px;
 }
+
+.no-decoration {
+  list-style-type: none;
+}
