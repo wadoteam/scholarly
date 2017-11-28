@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<!-- saved from url=(0031)http://scholarly.vernacular.io/ -->
+<html lang="en-GB" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width">
+    <title>Scholarly HTML — Markedly Smart</title>
+    <link rel="stylesheet" href="./ScholaryAssets/styles/scholarly.css">
+    <link rel="stylesheet" href="./ScholaryAssets/styles/prism-coy.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body prefix="schema: http://schema.org/ xsd: http://www.w3.org/2001/XMLSchema# sa: https://ns.science.ai/">
+<a id="page-up" class="fa fa-angle-double-up fa-2x " href="#table-of-content"></a>
+<header>
+    <p class="title">WADO Project</p>
+    <p class="subtitle">Wade</p>
+</header>
+<article id="what" typeof="schema:ScholarlyArticle" resource="#">
+    <h1>An ontology for web development concepts</h1>
+    <section>
+        <ol>
+            <li property="schema:author" typeof="sa:ContributorRole">
+                <a property="schema:author" href=# typeof="schema:Person">
+                    <span property="schema:givenName">Alexandru</span>
+                    <span property="schema:familyName">Furculita</span>
+                </a>
+            </li>
+            </br>
+            <li property="schema:contributor" typeof="sa:ContributorRole">
+                <a property="schema:contributor" href="#" typeof="schema:Person">
+                    <span property="schema:givenName">Andrei</span>
+                    <span property="schema:familyName">Juravle</span>
+                </a>
+            </li>
+            </br>
+            <li property="schema:contributor" typeof="sa:ContributorRole">
+                <a property="schema:contributor" href="#" typeof="schema:Person">
+                    <span property="schema:givenName">Madalina</span>
+                    <span property="schema:familyName">Neghina</span>
+                </a>
+            </li>
+            </br>
+            <li property="schema:contributor" typeof="sa:ContributorRole">
+                <a property="schema:contributor" href="#" typeof="schema:Person">
+                    <span property="schema:givenName">Constantin</span>
+                    <span property="schema:familyName">Serediuc</span>
+                </a>
+            </li>
+        </ol>
+    </section>
+
+    <section typeof="sa:Abstract" id="abstract">
+        <h1>Abstract</h1>
+        <p>
+            Wado project aims to construct and manage an ontology with information about web development. Informations
+            which will be included in ontology varies from programming languages and IDEs to specific algorithms and
+            arhitecture
+            patterns. The design of ontology aims a modular approach, such that new knowledge in different formats can
+            easily extend
+            it. Also, project includes a interface which allows a user to search information about web development using
+            natural language.
+            The main architectural propose is to link information from different sources and to infer new data from that
+            information.
+        </p>
+    </section>
+
+
+    <section id="table-of-content">
+        <h1>Table of content</h1>
+        <p>
+        <ul style="list-style-type: none;">
+            <li><a href="#architecture">1. Architecture</a></li>
+            <li><a href="#architecture-ontology">1.1. Ontology Architecture</a></li>
+            <li><a href="#data-sources-github">1.2. Github GraphQL</a></li>
+            <li><a href="#data-sources-wikidata">1.3. WikiData</a></li>
+            <li><a href="#development">2. Development</a></li>
+            <li><a href="#development-creation">2.1. Construct of Ontology</a></li>
+            <li><a href="#development">2.2. Ontology interrogation</a></li>
+            <li><a href="#conclusion">3. Conclusion</a></li>
+            <li><a href="#biblio">4. Bibliography</a></li>
+        </ul>
+        </p>
+    </section>
+
+    <section id="architecture">
+        <h1>1. Arhitecture</h1>
+        <p>
+            The architecture of ontology must allow different data sources(like a REST api, a GraphQl Api, an existing
+            ontology) with different formats(like json, turtle etc.). To achieve modularity it will be used
+            a set of design patterns specific for ontologies. Also, not only ontology must be modular, but entire
+            project as well. Because of this, a microservice architectural approach will be used. (diagrama cu
+            arhitectura/ module)
+        </p>
+    </section>
+
+    <section id="architecture-ontology">
+        <h2>1.1 Ontology's architecture</h2>
+        <p>
+            Ontology will aggregate different data sources. Primary sources are json responses from GraphQl
+            Github Api
+            <a target="_blank" href="https://developer.github.com/v4/">
+                <strong>GraphQl Github Api</strong>
+            </a>
+            and <a target="_blank" href="https://www.wikidata.org/wiki/Wikidata:Main_Page"><strong>WikiData
+            ontology.</strong></a>
+            The data from this sources will be linked under WADO ontology classes. To assure correctness and modular
+            design
+            it will be used <a target="_blank" href="http://ontologydesignpatterns.org/wiki/Submissions:AlignmentODPs">Aligment
+            Ontology
+            Design Patterns</a>
+            <aside typeof="schema:WPSideBar"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                OntologyDesignPatterns is a project from Association for Ontology Design & Patterns which propose is to
+                create a portal where web semantic community can share, discuss and certified design patterns specific
+                for
+                good and reusable ontologies.
+            </aside>
+        </p>
+        <p>
+            Aligment of data sources under Wado ontology is made following <strong>Composition over Equivalence
+            Principle.</strong>
+            The problem of modular ontology design is that the number of subconcept is not know
+            and the name of concept as well.The common approach is making classes which representing a new concept,
+            equivalent but, when the number of classes grow is difficult to add new class( this means to modify existing
+            classes to
+            be equivalent with new class). Because of this, composition over equivalence is choose to bo main principle
+            for linking
+            data. So, classes of WADO ontology will be defined to represent different representation of same concept.
+            For
+            exemple
+            WADO class <code>wado:language</code> will have <code>wd:Q9143(ProgrammingLanguage)</code> subclass and
+            another one
+            which repesent <code>github language concept</code> which will be created after a graphQL query. The client
+            will work
+            only with WADO classes so different datasources search will be a transparent process.
+
+            <figure typeof="sa:Image">
+                <img src="././ScholaryAssets/img/normalization_aligment.jpg" width="1" height="200">
+                <figcaption>
+                    Fig 1.1 Exemple of aligment data through composition.
+                </figcaption>
+            </figure>
+        </p>
+
+        <p>
+            Another alignment design pattern which will be used is <a
+                href="http://ontologydesignpatterns.org/wiki/Submissions:Normalization" target="_blank">
+            Normalization ODP.</a> Following this principle will be defined some axes of ontology (layers) -- de
+            completat cu axele--. Every layer will have only one parent class. The relations between layers will be
+            defined using restrictions not inheritance because this way layers can be independent. Also using
+            restriction to establish relations between classes and not using inheritance increase level of inference and
+            pass the maintenance to the reasoner.For exemple, in order to define relation between
+            <code>wado:Paradigm</code> and <code>wado:FunctionalParadigm</code> and
+            <code>wado:ObjectOrientedParadigm</code> it will be used a universal restriction
+
+            <figure typeof="schema:SoftwareSourceCode">
+                <meta property="schema:name" content="html">
+                <pre property="schema:programmingLanguage" typeof="schema:Language" class=" language-html"><code
+                        class=" language-html">
+                    Paradigm has <strong>only</strong> Functional or ObjectOriented or RuleBased
+                </code></pre>
+                <figcaption>
+                    An example of using restriction to define relations between classes
+                </figcaption>
+            </figure>
+        </p>
+    </section>
+
+    <section id="data-sources-github">
+        <h2>1.2 Ontology's data sources. GithubGraphQL</h2>
+        <p>
+            One of the most important data source for WADO ontology is information from github obtained through GraphQL
+            Api v4.
+            <aside typeof="schema:WPSideBar"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                The GitHub GraphQL API v4 represents an architectural and conceptual shift from the GitHub REST API v3.
+                GraphQL is a query language for APIs and a runtime for fulfilling those queries with your existing
+                data.<br>
+                «<a target="_blank" href="http://graphql.org/">GraphQL</a> provides a complete and understandable
+                description of the data in your API, gives clients
+                the
+                power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time,
+                and
+                enables powerful developer tools.»</cite>
+            </aside>
+            In <a href="#development">section dedicated to development</a> is defied a two steps process: creation of
+            the
+            ontology and interrogation. In creation step a module will populate ontology with instances with
+            correspondence in Github GraphQL Api. The main types from github api which will be used in ontology are:
+        <ul>
+            <li>Organization</li>
+            <li>Repository</li>
+            <li>Pull Requests</li>
+            <li>Tags</li>
+            <li>Language</li>
+            <li>Topic</li>
+            <li>License</li>
+        </ul>
+        </p>
+    </section>
+
+    <section id="data-sources-wikidata">
+        <h2>1.2 Ontology's data sources. Wikidata</h2>
+        <p>
+            Second source of information for construction of ontology is a part of another ontology: Wikidata.
+            <aside typeof="schema:WPSideBar"><i class="fa fa-info-circle" aria-hidden="true"></i>
+                «<a target="_blank" href="https://www.wikidata.org/wiki/Wikidata:Main_Page">Wikidata</a> is a free and
+                open knowledge base that can be read and edited by both humans and machines.
+                Wikidata acts as central storage for the structured data of its Wikimedia sister projects including
+                Wikipedia, Wikivoyage, Wikisource, and others»</cite>
+            </aside>
+
+        </p>
+    </section>
+
+    <section id="development">
+        <h1>2. Development</h1>
+    </section>
+    <section id="development-creation">
+        <h1>2.1 Construct of Ontology</h1>
+    </section>
+    <section id="development-interogation">
+        <h1>2.2 Ontology interogation</h1>
+    </section>
+
+    <section id="conclusion">
+        <h1>3. Conclusion</h1>
+    </section>
+    <section id="biblio">
+        <h1>4. Bibliography</h1>
+    </section>
+</article>
+</body>
+</html>
