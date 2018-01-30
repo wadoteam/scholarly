@@ -82,6 +82,7 @@
             <li><a href="#development-build-ontology">4.1. Build Ontology Microservice</a></li>
             <li><a href="#development-query-ontology">4.2. Querying Ontology Microservice</a></li>
             <li><a href="#development-process-input">4.3. Process Input Microservice</a></li>
+            <li><a href="#development-client-app">4.4. Client Application Architecture</a></li>
             <li><a href="#conclusion">5. Conclusion</a></li>
             <li><a href="#biblio">6. Bibliography</a></li>
         </ul>
@@ -346,12 +347,13 @@
                                                                                 href="https://github.com/wadoteam/wadoteam.github.io/issues/1">Client
         Aplication </a>module.
         </p>
-
-
-        2 steps of project ( create ontology si interogarea ei)
-        impartirea in microservicii independente si specializate (imagini plus explicat un pic). folosirea unui reasoner
-        pentru a obtine date noi. comunicarea rest intre microservicii. tooluri: protege, jena, angular and
-
+        Inter service communication will be realized with REST paradigm.
+        Other tools which will be used :
+        <ul>
+            <li>Protege</li>
+            <li>Jena</li>
+            <li>Angular 2.0</li>
+        </ul>
     </section>
 
     <section id="development-build-ontology">
@@ -411,6 +413,19 @@
         </p>
     </section>
 
+    <section id="development-client-app">
+        <h2>4.4 Client Application</h2>
+        <p>
+            Client application role is to link together the functionalities.
+        <figure typeof="sa:Image">
+            <img src="././ScholaryAssets/img/client_aplication_diagram.jpg" width="1" height="200">
+            <figcaption>
+                Fig 1.5 Client Application Architecture
+            </figcaption>
+        </figure>
+        </p>
+    </section>
+
 
     <section id="conclusion">
         <h1>5. Conclusion</h1>
@@ -425,38 +440,38 @@
     </section>
     <section id="biblio">
         <h1>6. Bibliography</h1>
-		<ol>
-			<li>
-				<a href="https://www.wikidata.org/wiki/Wikidata:Main_Page">
-				Wikidata
-				</a>
-			</li>
-			<li>
-				<a href="http://graphql.org/learn/">
-				GraphQL
-				</a>
-			</li>
-			<li>
-				<a href="http://ontologydesignpatterns.org/wiki/Main_Page">
-				Ontology Design Patterns
-				</a>
-			</li>
-			<li>
-				<a href="http://mowl-power.cs.man.ac.uk/protegeowltutorial/resources/ProtegeOWLTutorialP4_v1_3.pdf">
-				Protege OWL Tutorial
-				</a>
-			</li>
-			<li>
-				<a href="http://vowl.visualdataweb.org/webvowl.html">
-				WebVOWL: Web-based Visualization of Ontologies
-				</a>
-			</li>
-			<li>
-				<a href="https://www.w3.org/TR/shacl/">
-				Shapes Constraint Language (SHACL)
-				</a>
-			</li>
-		</ol>
+        <ol>
+            <li>
+                <a href="https://www.wikidata.org/wiki/Wikidata:Main_Page">
+                    Wikidata
+                </a>
+            </li>
+            <li>
+                <a href="http://graphql.org/learn/">
+                    GraphQL
+                </a>
+            </li>
+            <li>
+                <a href="http://ontologydesignpatterns.org/wiki/Main_Page">
+                    Ontology Design Patterns
+                </a>
+            </li>
+            <li>
+                <a href="http://mowl-power.cs.man.ac.uk/protegeowltutorial/resources/ProtegeOWLTutorialP4_v1_3.pdf">
+                    Protege OWL Tutorial
+                </a>
+            </li>
+            <li>
+                <a href="http://vowl.visualdataweb.org/webvowl.html">
+                    WebVOWL: Web-based Visualization of Ontologies
+                </a>
+            </li>
+            <li>
+                <a href="https://www.w3.org/TR/shacl/">
+                    Shapes Constraint Language (SHACL)
+                </a>
+            </li>
+        </ol>
     </section>
 </article>
 </body>
