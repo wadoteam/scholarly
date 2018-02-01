@@ -229,7 +229,7 @@
             </aside>
             In <a href="#development">section dedicated to development</a> there is defined a two steps process: creation of
             the ontology and interrogation. In creation step a module will populate ontology with instances with
-            correspondence in Github GraphQL Api. The main types from github api which will be used in ontology are:
+            correspondence in GitHub GraphQL API. The main types from GitHub API which will be used in ontology are:
         <ul>
             <li>Organization</li>
             <li>Repository</li>
@@ -251,7 +251,7 @@
             </li>
             <li><a target="_blank" href="http://xmlns.com/foaf/0.1/">FOAF</a> is used to represent relation between
                 concepts and also between people. In this way
-                ontology can suggest related data about a cliend's search
+                ontology can suggest related data about a client's search
             </li>
             <li><a target="_blank" href="http://www.w3.org/2002/07/owl#">OWL</a> is used to represent complex relation
                 between
@@ -296,29 +296,24 @@
             on a certain task. Entire project is construct on the follow microservices:
         <ol>
             <li>
-                <a target="_blank" href="https://github.com/wadoteam/wadoteam.github.io/issues/2">BuildOntology Micro
+                <a target="_blank" href="https://github.com/wadoteam/ontology">BuildOntology Micro
                     Service</a>
             </li>
             <li>
-                <a target="_blank" href="https://github.com/wadoteam/wadoteam.github.io/issues/3">QueryingOntology Micro
-                    Service</a>
-            </li>
-            <li>
-                <a target="_blank" href="https://github.com/wadoteam/wadoteam.github.io/issues/4">ProcessInput Micro
-                    Service</a>
+                <a target="_blank" href="https://github.com/wadoteam/ontologyRESTApi">REST API</a>
             </li>
         </ol>
 
-        All micro services mentioned will be use to create aplication by the <a target="_blank"
-                                                                                href="https://github.com/wadoteam/wadoteam.github.io/issues/1">Client
-        Aplication </a>module.
+        All micro services mentioned will be use to create a<a target="_blank"
+                                                                                href="https://github.com/wadoteam/wado_intelij_plugin">Client
+        Application </a> module represented by an IntelliJ Plug-in.
         </p>
         Inter service communication will be realized with REST paradigm.
         Other tools which will be used :
         <ul>
             <li>Protege</li>
             <li>Jena</li>
-            <li>Angular 2.0</li>
+			<li>Fuseki</li>
         </ul>
     </section>
 
@@ -327,11 +322,11 @@
         <p>
             This microservice cover up the first part of project development, ontology creation.
         <ul class="no-decoration">
-            <li><strong>Scope:</strong> aggragate information from sources independent of formats or types and convert
-                in Wado classes/predicates
+            <li><strong>Scope:</strong> aggregate information from sources independent of formats or types and convert
+                in WADO classes/predicates
             </li>
-            <li><strong>Input:</strong> github graphQL api / wikidata</li>
-            <li><strong>Output:</strong> wado classes/predicates</li>
+            <li><strong>Input:</strong> GitHub GraphQL API</li>
+            <li><strong>Output:</strong> WADO classes/predicates</li>
         </ul>
         <figure typeof="sa:Image">
             <img src="././ScholaryAssets/img/build_ontology_microservice_diagram.jpg" width="1" height="200">
@@ -342,47 +337,45 @@
         </p>
     </section>
 
-    <section id="development-query-ontology">
-        <h2>4.2 QueryOntology Micro service</h2>
+    <section id="development-rest-api">
+        <h2>4.2 REST API</h2>
         <p>
-            This microservice is the principal node between a clien request and Wado Ontology.
+            This microservice is the principal node between a client request and Wado Ontology.
         <ul class="no-decoration">
             <li><strong>Scope:</strong> query ontology based on request (filters, paginating, suggestion)</li>
-            <li><strong>Input:</strong> a input procesed by the InputProcessing microservice</li>
+            <li><strong>Input:</strong> input described by: a route string and filters expressed with help of ontology classes</li>
             <li><strong>Output:</strong> a JSON Response based on the search through ontology</li>
         </ul>
         <figure typeof="sa:Image">
             <img src="././ScholaryAssets/img/query_ontology_microservice_diagram.jpg" width="1" height="200">
             <figcaption>
-                Fig 1.3 Query Ontology Miroservice Arhitecture
+                Fig 1.3 REST API Arhitecture
             </figcaption>
         </figure>
         </p>
-    </section>
-
-    <section id="development-process-input">
-        <h2>4.3 ProcessInput Micro service</h2>
-        <p>
-            This microservice is basicaly a convertor between client request and QueryOntology Microservice.
-        <ul class="no-decoration">
-            <li><strong>Scope:</strong> transform natural language like input into a format machine accessible</li>
-            <li><strong>Input:</strong> a client natural language like input</li>
-            <li><strong>Output:</strong> a REST url which translate client input in a QueryOntology Microservice input
-            </li>
-        </ul>
-        <figure typeof="sa:Image">
-            <img src="././ScholaryAssets/img/process_input_microservice_diagram.jpg" width="1" height="200">
-            <figcaption>
-                Fig 1.4 Query Ontology Miroservice Arhitecture
-            </figcaption>
-        </figure>
-        </p>
+		
+		<p>
+			In order for the REST API to be able to interrogate the WADO ontology, Fuseki server is used. Fuseki creates and endpoint for WADO ontology, 
+			endpoint that can be used by anyone through HTTP protocol.
+			An example of a query that is done by the REST API is the following:
+			<aside typeof="schema:WPSideBar">
+			SELECT ?link ?description
+			WHERE {
+				?subject <http://www.semanticweb.org/cosntantin/ontologies/2018/0/untitled-ontology-8#isFor> <http://www.semanticweb.org/constantin/ontologies/2018/wado-awsome#beego>.
+				?subject <http://www.co-ode.org/ontologies/ont.owl#hasLink> ?link.
+				?subject <http://www.semanticweb.org/constantin/ontologies/2018/wado-awsome#hasDescription> ?description.
+			}
+			LIMIT 10000
+			</aside>
+		</p>
+			
     </section>
 
     <section id="development-client-app">
-        <h2>4.4 Client Application</h2>
+        <h2>4.3 Client Application</h2>
         <p>
-            Client application role is to link together the functionalities.
+            Client application role is to link together the functionalities. It is represented by an IntelliJ Plug-in that is able to find repositories from GitHub using different 
+			filters like: programming language, editors, paradigms etc.
         <figure typeof="sa:Image">
             <img src="././ScholaryAssets/img/client_aplication_diagram.jpg" width="1" height="200">
             <figcaption>
